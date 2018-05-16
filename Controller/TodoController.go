@@ -1,12 +1,12 @@
 package controller
 
 import (
+	"TodoList/model"
 	"encoding/json"
-	"fmt"
+	"html/template"
 	"net/http"
 	"path"
 	"strconv"
-	"todo/model"
 )
 
 func TodoHandler(w http.ResponseWriter, r *http.Request) {
@@ -27,18 +27,22 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 }
 func getController(w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.Atoi(path.Base(r.URL.Path))
+	t, _ := template.ParseFiles("View/index.html")
 	if err != nil {
-		return err
+		t.Execute(w, nil)
+	} else {
+		todo, err := model.GetTodo(id)
+		if err != nil {
+			return err
+		} else {
+			data, err := json.Marshal(&todo)
+			if err != nil {
+				return err
+			}
+			w.Header().Set("Content-Type", "application/json")
+			w.Write(data)
+		}
 	}
-	todo, err := model.GetTodo(id)
-	if err != nil {
-		return err
-	}
-	data, err := json.Marshal(&todo)
-	if err != nil {
-		return err
-	}
-	fmt.Fprint(w, string(data))
 	return nil
 }
 
@@ -52,6 +56,7 @@ func postController(w http.ResponseWriter, r *http.Request) error {
 	if err != nil {
 		return err
 	}
+	w.WriteHeader(200)
 	return nil
 }
 func putController(w http.ResponseWriter, r *http.Request) error {

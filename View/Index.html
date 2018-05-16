@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>TodoList</title>
-	<link rel="stylesheet" href="static/main.css">
+	<link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
 	<div class="box">
@@ -22,8 +22,8 @@
 			  <div class="container">
 			  	<ul>
 			  		<li>
-						<div class="left">
-							<h3><a href="">Golang生成静态页面文件</a></h3>
+						<div class="left" id="content-left">
+							<h3 id="ajaxbtn"><a href="">Golang生成静态页面文件</a></h3>
 						</div>
 						<div class="right">
 							<a href="">完成</a>
@@ -38,4 +38,26 @@
 		</div>
 	</div>
 </body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){  
+    $(function() {    
+        $('#ajaxbtn').on('click',function(){
+        	 $.ajax ({  
+	             url:"/todo/1",  
+	             type:'GET',
+	             dataType:'JSON',
+	             error:function(){
+	             	alert("error");
+	             },
+	             success:function(data){
+	             	alert(data.title);
+	             	alert(data.content);
+	             },
+	        });
+        	 return false;
+	    })
+	})
+});
+</script>
 </html>
