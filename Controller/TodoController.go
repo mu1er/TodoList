@@ -4,6 +4,7 @@ import (
 	"TodoList/model"
 	"encoding/json"
 	"html/template"
+	//	"io"
 	"net/http"
 	"path"
 	"strconv"
@@ -46,17 +47,25 @@ func getController(w http.ResponseWriter, r *http.Request) error {
 	return nil
 }
 
+type JSON struct {
+	Msg string `json:"msg"`
+}
+
 func postController(w http.ResponseWriter, r *http.Request) error {
 	len := r.ContentLength
 	body := make([]byte, len)
 	r.Body.Read(body)
-	todo := new(model.Todo)
+	var todo model.Todo
 	json.Unmarshal(body, &todo)
 	err := todo.Create()
 	if err != nil {
 		return err
 	}
+	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(200)
+	data := &JSON{Msg: "Create Success"}
+	msg, _ := json.Marshal(&data)
+	w.Write(msg)
 	return nil
 }
 func putController(w http.ResponseWriter, r *http.Request) error {

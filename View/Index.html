@@ -40,19 +40,22 @@
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script>
-$(document).ready(function(){  
-    $(function() {    
+$(document).ready(function(){
+    $(function() {
         $('#ajaxbtn').on('click',function(){
-        	 $.ajax ({  
-	             url:"/todo/1",  
-	             type:'GET',
+        	 $.ajax ({
+	             url:"/todo/",
+	             type:'POST',
+	             data: JSON.stringify({
+	        		"title":"One",
+	        		"content":"One"
+        		 }),
 	             dataType:'JSON',
 	             error:function(){
 	             	alert("error");
 	             },
-	             success:function(data){
-	             	alert(data.title);
-	             	alert(data.content);
+	             success:function(msg){
+	             	alert(msg.msg);
 	             },
 	        });
         	 return false;
