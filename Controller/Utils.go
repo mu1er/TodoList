@@ -9,7 +9,8 @@ import (
 
 func InitializeStatic(theme string) {
 	fs := http.FileServer(http.Dir(strings.Join([]string{"View", theme, "static"}, "/")))
-	http.Handle(strings.Join([]string{"", theme, "static", ""}, "/"), http.StripPrefix(strings.Join([]string{"", theme, "static"}, "/"), fs))
+	http.Handle(strings.Join([]string{"", theme, "static", ""}, "/"),
+		http.StripPrefix(strings.Join([]string{"", theme, "static"}, "/"), fs))
 }
 
 func Render(w http.ResponseWriter, data interface{}, theme string, filenames ...string) {

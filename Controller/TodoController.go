@@ -1,8 +1,10 @@
 package controller
 
 import (
-	"TodoList/model"
+	//	"TodoList/model"
 	"net/http"
-	"path"
-	"strconv"
 )
+
+func TodoHandler(w http.ResponseWriter, r *http.Request) {
+	Render(w, nil, "default", "index", "home", "nav", "footer")
+}

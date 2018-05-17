@@ -12,5 +12,6 @@ func Run() {
 }
 
 func Routes() {
+	http.HandleFunc("/", TodoHandler)
 	http.HandleFunc("/todo/", TodoHandler)
 }
