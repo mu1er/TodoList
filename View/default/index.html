@@ -1,3 +1,4 @@
+{{define "default"}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,18 +8,19 @@
 </head>
 <body>
 	<div class="box">
-		{{template "nav"}}
+		{{template "nav" .}}
 		<div class="body">
 			<div class="title_style">
 				<span>ToDo</span>
 			</div>
-		{{template "content"}}
+		{{template "content" .}}
 		</div>
 		<div class="footer">
-		{{template "footer"}}
+		{{template "footer" .}}
 		</div>
 	</div>
 </body>
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <script src="/default/static/js/app.js"></script>
 </html>
+{{end}}

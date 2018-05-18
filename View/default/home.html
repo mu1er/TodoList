@@ -1,15 +1,25 @@
 {{define "content"}}
 <div class="container">
 	<ul>
+		{{range .Todo}}
 		<li>
 		<div class="left" id="content-left">
-			<h3 id="ajaxbtn"><a href="">Golang生成静态页面文件</a></h3>
+			<h3 id="ajaxbtn"><a href="">{{.Title}}</a></h3>
 		</div>
 		<div class="right">
 			<a href="">完成</a>
 			<a href="">删除</a>
 		</div>
 		</li>
+		{{end}}
 	</ul>
+</div>
+<div class="paginate">
+	{{if ne .PrePage -1}}
+	<a href="/?page={{.PrePage}}"><<</a>
+	{{end}}
+	{{if ne .NextPage -1}}
+	<a href="/?page={{.NextPage}}">>></a>
+	{{end}}
 </div>
 {{end}}

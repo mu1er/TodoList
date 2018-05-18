@@ -19,5 +19,5 @@ func Render(w http.ResponseWriter, data interface{}, theme string, filenames ...
 		files = append(files, fmt.Sprintf("View/"+theme+"/%s.html", filename))
 	}
 	tmp := template.Must(template.ParseFiles(files...))
-	tmp.Execute(w, data)
+	tmp.ExecuteTemplate(w, "default", data)
 }

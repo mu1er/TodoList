@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS t_todo(
 	id int primary key auto_increment,
 	title varchar(255) not null,
 	content text,
+	is_success boolean DEFAULT '0',
+	data timestamp,
 	user_id int
 );
 `

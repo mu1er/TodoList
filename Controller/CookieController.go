@@ -7,10 +7,9 @@ import (
 func ReadCookieServer(r *http.Request) (string, error) {
 	cookie, err := r.Cookie("_cookie")
 	if err != nil {
-		return nil, err
-	} else {
-		return cookie.Value, nil
+		return "", err
 	}
+	return cookie.Value, nil
 }
 
 func WriteCookieServer(w http.ResponseWriter, value string) {
@@ -23,7 +22,7 @@ func WriteCookieServer(w http.ResponseWriter, value string) {
 	http.SetCookie(w, &cookie)
 }
 
-func DeleteCookieServer(w http.ResponseWriter) error {
+func DeleteCookieServer(w http.ResponseWriter) {
 	cookie := http.Cookie{
 		Name:     "_cookie",
 		MaxAge:   -1,

@@ -14,4 +14,7 @@ func Run() {
 func Routes() {
 	http.HandleFunc("/", TodoHandler)
 	http.HandleFunc("/todo/", TodoHandler)
+	http.HandleFunc("/signup/", Signup)
+	http.HandleFunc("/login/", Login)
+	http.HandleFunc("/logout/", Logout)
 }
