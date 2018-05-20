@@ -24,9 +24,9 @@ func GetAllUser() ([]*User, error) {
 	return users, nil
 }
 
-func GetUser(id int) (*User, error) {
+func GetUser(username string) (*User, error) {
 	user := new(User)
-	err := Db.QueryRow("select id,username,password,email from t_user where id=?", id).
+	err := Db.QueryRow("select id,username,password,email from t_user where username=?", username).
 		Scan(&user.Id, &user.Username, &user.Password, &user.Email)
 	if err != nil {
 		return nil, err

@@ -30,11 +30,10 @@ html,body{
 	width:2%;
 }
 .header .right{
-	display: flex;
-	align-items: center;
 	width: 10%;
 }
 .header .right ul{
+	height:100%;
 	flex-wrap:nowrap;
 	display: flex;
 	justify-content: space-around;
@@ -70,18 +69,18 @@ html,body{
 	display: flex;
 	justify-content: center;
 }
-.signup{
+.container-form{
 	width: 70%;
 	height: 100%;
 	justify-content: center;
 	align-items: center;
 }
-.signup span{
+.container-form span{
 	font-size:36px;
 	display: flex;
 	justify-content: center;
 }
-.signup input{
+.container-form input{
 	margin-top: 5%;
 	flex-direction: column;
 	width:100%;
@@ -89,12 +88,12 @@ html,body{
 	padding-left:5px; 
 	border-radius:3px;
 }
-.signup-footer{
+.form-footer{
 	margin-top: 5%;
 	display: flex;
 	justify-content:space-between;
 }
-.signup-footer button{
+.form-footer button{
 	height:30px;
 	width:100px;
 	border:1px solid #fff;

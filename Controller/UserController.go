@@ -16,16 +16,20 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 		}
 		if r.Method == "POST" {
 			r.ParseForm()
-			user := &model.User{
-				Username: r.FormValue("username"),
-				Password: r.FormValue("password"),
-				Email:    r.FormValue("email"),
+			if r.FormValue("username") == "" || r.FormValue("password") == "" || r.FormValue("email") == "" {
+				log.Fatalln("You cannot have null values")
+			} else {
+				user := &model.User{
+					Username: r.FormValue("username"),
+					Password: r.FormValue("password"),
+					Email:    r.FormValue("email"),
+				}
+				err := user.CreateUser()
+				if err != nil {
+					log.Fatalln("Create User Error:", err)
+				}
+				http.Redirect(w, r, "/login", 302)
 			}
-			err := user.CreateUser()
-			if err != nil {
-				log.Fatalln("Create User Error:", err)
-			}
-			http.Redirect(w, r, "/login", 302)
 		}
 	}
 }
@@ -43,14 +47,15 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			password := r.FormValue("password")
 			user, err := model.CheckPass(email, password)
 			if err != nil {
-				log.Fatalln("Username or Password Error")
+				log.Fatalln("Username or Password Error", err)
 			}
-			WriteCookieServer(w, user.Username)
-			http.Redirect(w, r, "/", 302)
+			WriteCookieServer(w, user.Username, "/")
+			http.Redirect(w, r, "/admin/", 302)
 		}
 	}
 }
 func Logout(w http.ResponseWriter, r *http.Request) {
-	DeleteCookieServer(w)
+	cookie, _ := ReadCookieServer(r)
+	DeleteCookieServer(w, cookie, "/")
 	http.Redirect(w, r, "/", 302)
 }

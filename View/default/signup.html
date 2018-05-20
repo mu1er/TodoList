@@ -1,13 +1,13 @@
 {{define "content"}}
 <div class="container">
-	<div class="signup">
+	<div class="container-form">
 		<span>注册</span>
-		<form action="/signup" method="POST" id="signup">
+		<form action="/signup/" method="POST" id="signup">
 			<input type="text" name="username" placeholder="UserName">
 			<input type="password" name="password" placeholder="PassWord">
 			<input type="email" name="email" placeholder="Email">
 		</form>
-		<div class="signup-footer">
+		<div class="form-footer">
 			<a href="/signup"><button type="submit" form="signup">注册</button></a>
 			<a href="/login"><button type="submit">登录</button></a>
 		</div>

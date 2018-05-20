@@ -29,6 +29,20 @@ func GetAllTodo() ([]*Todo, error) {
 	}
 	return todos, nil
 }
+func GetUserTodo(user_id int) ([]*Todo, error) {
+	todos := []*Todo{}
+	rows, err := Db.Query("select id,title,content,is_success,data from t_todo where user_id=?", user_id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	for rows.Next() {
+		todo := new(Todo)
+		_ = rows.Scan(&todo.Id, &todo.Title, &todo.Content, &todo.Is_success, &todo.Data)
+		todos = append(todos, todo)
+	}
+	return todos, nil
+}
 func GetTodo(id int) (*Todo, error) {
 	todo := new(Todo)
 	err := Db.QueryRow("select id,title,content,is_success,data,user_id from t_todo where id=?", id).

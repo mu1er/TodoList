@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"time"
 )
 
 func ReadCookieServer(r *http.Request) (string, error) {
@@ -12,21 +13,25 @@ func ReadCookieServer(r *http.Request) (string, error) {
 	return cookie.Value, nil
 }
 
-func WriteCookieServer(w http.ResponseWriter, value string) {
+func WriteCookieServer(w http.ResponseWriter, value string, path string) {
 	cookie := http.Cookie{
 		Name:     "_cookie",
 		Value:    value,
 		MaxAge:   86400,
 		HttpOnly: true,
+		Path:     path,
 	}
 	http.SetCookie(w, &cookie)
 }
 
-func DeleteCookieServer(w http.ResponseWriter) {
+func DeleteCookieServer(w http.ResponseWriter, value string, path string) {
 	cookie := http.Cookie{
 		Name:     "_cookie",
-		MaxAge:   -1,
 		HttpOnly: true,
+		Value:    value,
+		Path:     path,
+		MaxAge:   -1,
+		Expires:  time.Unix(1, 0),
 	}
 	http.SetCookie(w, &cookie)
 }
