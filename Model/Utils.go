@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"math"
+	"time"
 )
 
 type Paginate struct {
@@ -18,6 +19,9 @@ func SetMd5(pass string) string {
 	h := md5.New()
 	h.Write([]byte(pass + "Salt"))
 	return hex.EncodeToString(h.Sum(nil))
+}
+func TimeFormat(data time.Time) string {
+	return data.Format("2006-01-02 15:04:05")
 }
 func Paginator(post []*Todo, pagenow, pagesize int) *Paginate {
 	pageCount := len(post)

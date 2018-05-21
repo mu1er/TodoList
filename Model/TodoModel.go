@@ -52,14 +52,13 @@ func GetTodo(id int) (*Todo, error) {
 	}
 	return todo, nil
 }
-func (user *User) CreateTodo() error {
-	todo := new(Todo)
+func (user *User) CreateTodo(title, content string) error {
 	stmt, err := Db.Prepare("insert into t_todo (title,content,data,user_id) values (?,?,?,?)")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
-	_, err = stmt.Exec(todo.Title, todo.Content, time.Now(), user.Id)
+	_, err = stmt.Exec(title, content, TimeFormat(time.Now()), user.Id)
 	if err != nil {
 		return err
 	}

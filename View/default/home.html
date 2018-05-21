@@ -4,11 +4,11 @@
 		{{range .Todo}}
 		<li>
 		<div class="left" id="content-left">
-			<h3 id="ajaxbtn"><a href="">{{.Title}}</a></h3>
-		</div>
-		<div class="right">
-			<a href="">完成</a>
-			<a href="">删除</a>
+			{{if .Is_success}}
+			<h3 id="ajaxbtn"><s><a href="/view?todoId={{.Id}}">{{.Title}}</a></s></h3>
+			{{else}}
+			<h3 id="ajaxbtn"><a  style="color:red;" href="/view?todoId={{.Id}}">{{.Title}}</a></h3>
+			{{end}}
 		</div>
 		</li>
 		{{end}}

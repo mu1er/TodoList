@@ -62,12 +62,12 @@ func (user *User) CreateUser() error {
 	return nil
 }
 func (user *User) UpdateUser() error {
-	stmt, err := Db.Prepare("update t_user set username=?,password=?,email=? where id=?")
+	stmt, err := Db.Prepare("update t_user set username=?,password=? where id=?")
 	if err != nil {
 		return err
 	}
 	defer stmt.Close()
-	res, err := stmt.Exec(user.Username, SetMd5(user.Password), user.Email, user.Id)
+	res, err := stmt.Exec(user.Username, SetMd5(user.Password), user.Id)
 	if err != nil {
 		return err
 	}

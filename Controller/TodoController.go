@@ -14,11 +14,25 @@ func TodoHandler(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatalln("Get All Todos Error", err)
 	}
-	paginator := model.Paginator(todos, page, 1)
+	paginator := model.Paginator(todos, page, 5)
 	cookie, _ := ReadCookieServer(r)
 	if cookie != "" {
 		Render(w, paginator, "default", "index", "home", "nav.private", "footer")
 	} else {
 		Render(w, paginator, "default", "index", "home", "nav", "footer")
+	}
+}
+func TodoView(w http.ResponseWriter, r *http.Request) {
+	vals := r.URL.Query()
+	id, _ := strconv.Atoi(vals.Get("todoId"))
+	todo, err := model.GetTodo(id)
+	if err != nil {
+		log.Fatalln("Get All Todos Error", err)
+	}
+	cookie, _ := ReadCookieServer(r)
+	if cookie != "" {
+		Render(w, todo, "default", "index", "view", "nav.private", "footer")
+	} else {
+		Render(w, todo, "default", "index", "view", "nav", "footer")
 	}
 }

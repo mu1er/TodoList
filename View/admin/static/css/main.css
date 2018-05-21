@@ -10,7 +10,6 @@ html,body{
 	justify-content:row;
 	height: 100%;
 	width: 100%;
-
 }
 .nav{
 	width:10%;
@@ -42,8 +41,7 @@ html,body{
 }
 .content{
 	width: 60%;
-	height: 80%;
-	box-shadow: 0 5px 5px 1px #eee;
+	box-shadow: 0 5px 5px 3px #eee;
 }
 .handle{
 	display: flex;
@@ -51,8 +49,9 @@ html,body{
 	justify-content: center;
 }
 .handler {
-	width:30%;
+	width:100%;
 	display: flex;
+	flex-wrap: nowrap;
 	justify-content:space-around;
 }
 .handle li{
@@ -69,6 +68,7 @@ tbody tr td{
 	width: 90%;
 	height: 50%;
 	margin-top:20px;
+	margin-bottom: 20px;
 }
 .media{
 	width: 100%;
@@ -79,5 +79,42 @@ tbody tr td{
 	height: 20%;
 }
 .media-body{
+	margin-left:5%;
 	flex:1;
+}
+.media-body span{
+	font-size: 36px;
+}
+.detail{
+	margin-top:20px;
+	display: flex;
+	justify-content: space-between;
+}
+.medias{
+	box-shadow: 0 3px 3px 1px #eee;
+	width: 45%;
+}
+.medias a{
+	float: right;
+	margin-right:10px;
+}
+.media-body h5{
+	border-bottom: 1px solid #eee;
+}
+#form{
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+.form-control{
+	width: 80%;
+	margin: 0 auto;
+}
+.btn-class{
+	width: 80%;
+	margin: 0 auto;
+}
+.paginate{
+	width: 100%;
+	justify-content: center;
+	display: flex;
 }
