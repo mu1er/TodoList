@@ -9,12 +9,18 @@ import (
 
 func TodoHandler(w http.ResponseWriter, r *http.Request) {
 	vals := r.URL.Query()
-	page, _ := strconv.Atoi(vals.Get("page"))
+	page := vals.Get("page")
 	todos, err := model.GetAllTodo()
 	if err != nil {
 		log.Fatalln("Get All Todos Error", err)
 	}
-	paginator := model.Paginator(todos, page, 5)
+	var paginator interface{}
+	if page == "" {
+		paginator = model.Paginator(todos, 1, 5)
+	} else {
+		p, _ := strconv.Atoi(page)
+		paginator = model.Paginator(todos, p, 5)
+	}
 	cookie, _ := ReadCookieServer(r)
 	if cookie != "" {
 		Render(w, paginator, "default", "index", "home", "nav.private", "footer")

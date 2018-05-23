@@ -65,7 +65,7 @@ func (user *User) CreateTodo(title, content string) error {
 	return nil
 }
 func (todo *Todo) UpdateTodo() error {
-	stmt, err := Db.Prepare("update t_todo set is_success=1 where id=?")
+	stmt, err := Db.Prepare("update t_todo set is_success=true where id=?")
 	if err != nil {
 		return err
 	}

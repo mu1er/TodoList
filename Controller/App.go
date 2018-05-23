@@ -9,6 +9,7 @@ func Run() {
 	InitializeStatic("default")
 	Routes()
 	AdminRoutes()
+	ApiRoutes()
 	http.ListenAndServe(":8000", nil)
 }
 
@@ -25,5 +26,10 @@ func AdminRoutes() {
 	http.HandleFunc("/admin/user/", AdminUserController)
 	http.HandleFunc("/admin/createtodo/", AdminCreateController)
 	http.HandleFunc("/admin/edituser/", AdminEditUserController)
+	http.HandleFunc("/admin/todolist/done", AdminDoneController)
+	http.HandleFunc("/admin/todolist/delete", AdminDeleteController)
 	http.HandleFunc("/logout/", Logout)
+}
+func ApiRoutes() {
+	http.HandleFunc("/api/v1/todoView/", ApiTodoViewController)
 }

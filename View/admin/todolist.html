@@ -12,18 +12,30 @@
  		<tbody>
  			{{range .Todo}}
  			<tr>
- 				<td>{{.Title}}</td>
  				<td>
- 					<p style="white-space: nowrap;text-overflow: ellipsis;overflow:hidden;width:80%;">
+ 				{{if .Is_success}}
+					<s><p>{{.Title}}</p></s>
+				{{else}}
+					<p>{{.Title}}</p>
+				{{end}}
+				</td>
+ 				<td>
+ 					{{if .Is_success}}
+ 					<s><p style="white-space: nowrap;text-overflow: ellipsis;overflow:hidden;width:80%;">
+ 						{{.Content}}
+ 					</p></s>
+ 					{{else}}
+					<p style="white-space: nowrap;text-overflow: ellipsis;overflow:hidden;width:80%;">
  						{{.Content}}
  					</p>
+ 					{{end}}
  				</td>
  				<td>{{.Data}}</td>
  				<td>
  					<div class="handle">
 	 					<ul class="handler">
-	 						<li><a href="">完成</a></li>
-	 						<li><a href="">删除</a></li>
+	 						<li><a href="/admin/todolist/done?id={{.Id}}">完成</a></li>
+	 						<li><a href="/admin/todolist/delete?id={{.Id}}">删除</a></li>
 	 					</ul>
  					</div>
  				</td>
@@ -32,6 +44,7 @@
  		</tbody>
 	</table>
 	<div class="paginate">
+
 	{{if ne .PrePage -1}}
 	<a href="/admin/todolist/?page={{.PrePage}}"><<</a>
 	{{end}}

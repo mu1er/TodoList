@@ -9,8 +9,6 @@ import (
 
 func AdminInfoController(w http.ResponseWriter, r *http.Request) {
 	cookie, err := ReadCookieServer(r)
-	vals := r.URL.Query()
-	pagenow, _ := strconv.Atoi(vals.Get("page"))
 	if err != nil {
 		log.Fatalln("Get Cookie Error", err)
 		http.Redirect(w, r, "/login", 302)
@@ -19,6 +17,8 @@ func AdminInfoController(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln("Get Cookie Error", err)
 		http.Redirect(w, r, "/login", 302)
 	} else {
+		vals := r.URL.Query()
+		pagenow, _ := strconv.Atoi(vals.Get("page"))
 		user, err := model.GetUser(cookie)
 		if err != nil {
 			log.Fatalln("Get User Error", err)
@@ -101,5 +101,52 @@ func AdminEditUserController(w http.ResponseWriter, r *http.Request) {
 			}
 			http.Redirect(w, r, "/login", 302)
 		}
+	}
+}
+func AdminDoneController(w http.ResponseWriter, r *http.Request) {
+	cookie, err := ReadCookieServer(r)
+
+	if err != nil {
+		log.Fatalln("Get Cookie Error", err)
+		http.Redirect(w, r, "/login", 302)
+	}
+	if cookie == "" {
+		log.Fatalln("Get Cookie Error", err)
+		http.Redirect(w, r, "/login", 302)
+	} else {
+		vals := r.URL.Query()
+		id, _ := strconv.Atoi(vals.Get("id"))
+		todo, err := model.GetTodo(id)
+		if err != nil {
+			log.Fatalln("Not Found Todo", err)
+		}
+		err = todo.UpdateTodo()
+		if err != nil {
+			log.Fatalln("Edit Todo Error", err)
+		}
+		http.Redirect(w, r, "/admin/todolist/", 302)
+	}
+}
+func AdminDeleteController(w http.ResponseWriter, r *http.Request) {
+	cookie, err := ReadCookieServer(r)
+	if err != nil {
+		log.Fatalln("Get Cookie Error", err)
+		http.Redirect(w, r, "/login", 302)
+	}
+	if cookie == "" {
+		log.Fatalln("Get Cookie Error", err)
+		http.Redirect(w, r, "/login", 302)
+	} else {
+		vals := r.URL.Query()
+		id, _ := strconv.Atoi(vals.Get("id"))
+		todo, err := model.GetTodo(id)
+		if err != nil {
+			log.Fatalln("Not Found Todo", err)
+		}
+		err = todo.DeleteTodo()
+		if err != nil {
+			log.Fatalln("Delete Todo Error", err)
+		}
+		http.Redirect(w, r, "/admin/todolist/", 302)
 	}
 }
