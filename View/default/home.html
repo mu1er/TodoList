@@ -3,11 +3,11 @@
 	<ul>
 		{{range .Todo}}
 		<li>
-		<div class="left" id="content-left">
+		<div class="left">
 			{{if .Is_success}}
-			<h3 id="ajaxbtn"><s><a href="/view?todoId={{.Id}}">{{.Title}}</a></s></h3>
+				<h3 class="content-left"><s><a href="" rel="{{.Id}}">{{.Title}}</a></s></h3>
 			{{else}}
-			<h3 id="ajaxbtn"><a style="color:red;" href="/view?todoId={{.Id}}">{{.Title}}</a></h3>
+				<h3 class="content-left"><a style="color:red;" href="" rel="{{.Id}}">{{.Title}}</a></h3>
 			{{end}}
 		</div>
 		</li>

@@ -4,6 +4,7 @@ import (
 	"TodoList/model"
 	"log"
 	"net/http"
+	"path/filepath"
 	"strconv"
 )
 
@@ -105,7 +106,6 @@ func AdminEditUserController(w http.ResponseWriter, r *http.Request) {
 }
 func AdminDoneController(w http.ResponseWriter, r *http.Request) {
 	cookie, err := ReadCookieServer(r)
-
 	if err != nil {
 		log.Fatalln("Get Cookie Error", err)
 		http.Redirect(w, r, "/login", 302)
@@ -114,17 +114,14 @@ func AdminDoneController(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln("Get Cookie Error", err)
 		http.Redirect(w, r, "/login", 302)
 	} else {
-		vals := r.URL.Query()
-		id, _ := strconv.Atoi(vals.Get("id"))
-		todo, err := model.GetTodo(id)
-		if err != nil {
-			log.Fatalln("Not Found Todo", err)
-		}
+		id, _ := strconv.Atoi(filepath.Base(r.URL.Path))
+		todo, _ := model.GetTodo(id)
 		err = todo.UpdateTodo()
 		if err != nil {
-			log.Fatalln("Edit Todo Error", err)
+			w.WriteHeader(404)
 		}
-		http.Redirect(w, r, "/admin/todolist/", 302)
+		w.WriteHeader(200)
+		w.Header().Set("Content-Type", "application/json")
 	}
 }
 func AdminDeleteController(w http.ResponseWriter, r *http.Request) {
@@ -137,16 +134,13 @@ func AdminDeleteController(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln("Get Cookie Error", err)
 		http.Redirect(w, r, "/login", 302)
 	} else {
-		vals := r.URL.Query()
-		id, _ := strconv.Atoi(vals.Get("id"))
-		todo, err := model.GetTodo(id)
-		if err != nil {
-			log.Fatalln("Not Found Todo", err)
-		}
+		id, _ := strconv.Atoi(filepath.Base(r.URL.Path))
+		todo, _ := model.GetTodo(id)
 		err = todo.DeleteTodo()
 		if err != nil {
-			log.Fatalln("Delete Todo Error", err)
+			w.WriteHeader(404)
 		}
-		http.Redirect(w, r, "/admin/todolist/", 302)
+		w.WriteHeader(200)
+		w.Header().Set("Content-Type", "application/json")
 	}
 }

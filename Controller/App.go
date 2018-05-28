@@ -18,7 +18,7 @@ func Routes() {
 	http.HandleFunc("/todo/", TodoHandler)
 	http.HandleFunc("/signup/", Signup)
 	http.HandleFunc("/login/", Login)
-	http.HandleFunc("/view", TodoView)
+	http.HandleFunc("/view/", TodoView)
 }
 func AdminRoutes() {
 	http.HandleFunc("/admin/", AdminController)
@@ -26,8 +26,8 @@ func AdminRoutes() {
 	http.HandleFunc("/admin/user/", AdminUserController)
 	http.HandleFunc("/admin/createtodo/", AdminCreateController)
 	http.HandleFunc("/admin/edituser/", AdminEditUserController)
-	http.HandleFunc("/admin/todolist/done", AdminDoneController)
-	http.HandleFunc("/admin/todolist/delete", AdminDeleteController)
+	http.HandleFunc("/admin/todolist/done/", AdminDoneController)
+	http.HandleFunc("/admin/todolist/delete/", AdminDeleteController)
 	http.HandleFunc("/logout/", Logout)
 }
 func ApiRoutes() {
